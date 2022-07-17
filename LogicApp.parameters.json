@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "logicAppName": {
+      "value": "NothingForSomething"
+    },
+    "sql_1_server": {
+      "value": "e78-onboarding-sqldb.database.windows.net"
+    },
+    "sql_1_database": {
+      "value": "e78-onboarding"
+    },
+    "sql_1_username": {
+      "value": "CloudSAa3ac4e51"
+    },
+    "sql_1_password": {
+      "value": "Rajbaby1!"
+    },
+    "sql_1_encryptConnection": {
+      "value": true
+    },
+    "sql_1_privacySetting": {
+      "value": "None"
+    },
+    "sql_1_sqlConnectionString": {
+
+      "value": "Server=tcp:e78-onboarding-sqldb.database.windows.net,1433;Initial Catalog=e78-onboarding;Persist Security Info=False;User ID=CloudSAa3ac4e51;Password=Rajbaby1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+    }
+  }
+}
