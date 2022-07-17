@@ -12,7 +12,7 @@
       "value": "e78-onboarding"
     },
     "sql_1_username": {
-      "value": "CloudSAa3ac4e51"
+      "value": "#{sql_1_username}"
     },
     "sql_1_password": {
       "value": "Rajbaby1!"
