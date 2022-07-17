@@ -115,6 +115,14 @@
       "metadata": {
         "description": "SQL Connection String"
       }
+    },
+    "excelonline_1_Connection_Name": {
+      "type": "string",
+      "defaultValue": "excelonline-2"
+    },
+    "excelonline_1_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "Excel Online (OneDrive)"
     }
   },
   "variables": {},
@@ -172,9 +180,37 @@
                 "body": "Every Thing Okay"
               },
               "runAfter": {
+                "Add_a_row_into_a_table": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Add_a_row_into_a_table": {
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['excelonline_1']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "body": {
+                  "Column1": "ColumN1",
+                  "Column2": "No 2",
+                  "Column3": "no 3"
+                },
+                "path": "/codeless/v1.2/drives/me/items/@{encodeURIComponent('B2853B89553C810D!13371')}/workbook/tables/@{encodeURIComponent('{76BA3B34-6B18-462E-B972-A66E5F4F3F70}')}/rows",
+                "queries": {
+                  "source": "me"
+                }
+              },
+              "runAfter": {
                 "Insert_row_(V2)": [
                   "Succeeded"
                 ]
+              },
+              "metadata": {
+                "B2853B89553C810D!13371": "/MyFile.xlsx"
               }
             }
           },
@@ -210,13 +246,19 @@
                 "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'sql')]",
                 "connectionId": "[resourceId('Microsoft.Web/connections', parameters('sql_1_Connection_Name'))]",
                 "connectionName": "[parameters('sql_1_Connection_Name')]"
+              },
+              "excelonline_1": {
+                "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'excelonline')]",
+                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('excelonline_1_Connection_Name'))]",
+                "connectionName": "[parameters('excelonline_1_Connection_Name')]"
               }
             }
           }
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Web/connections', parameters('sql_1_Connection_Name'))]"
+        "[resourceId('Microsoft.Web/connections', parameters('sql_1_Connection_Name'))]",
+        "[resourceId('Microsoft.Web/connections', parameters('excelonline_1_Connection_Name'))]"
       ]
     },
     {
@@ -238,6 +280,18 @@
           "privacySetting": "[parameters('sql_1_privacySetting')]",
           "sqlConnectionString": "[parameters('sql_1_sqlConnectionString')]"
         }
+      }
+    },
+    {
+      "type": "MICROSOFT.WEB/CONNECTIONS",
+      "apiVersion": "2018-07-01-preview",
+      "name": "[parameters('excelonline_1_Connection_Name')]",
+      "location": "[parameters('logicAppLocation')]",
+      "properties": {
+        "api": {
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'excelonline')]"
+        },
+        "displayName": "[parameters('excelonline_1_Connection_DisplayName')]"
       }
     }
   ],
