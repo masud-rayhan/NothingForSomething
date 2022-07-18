@@ -123,6 +123,68 @@
     "excelonline_1_Connection_DisplayName": {
       "type": "string",
       "defaultValue": "Excel Online (OneDrive)"
+    },
+    "ftp_1_Connection_Name": {
+      "type": "string",
+      "defaultValue": "ftp"
+    },
+    "ftp_1_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "MyFTPconnection"
+    },
+    "ftp_1_serverAddress": {
+      "type": "string",
+      "metadata": {
+        "description": "Server Address"
+      },
+      "defaultValue": "ftp://67.217.46.244/autoguard/AG/E78/"
+    },
+    "ftp_1_userName": {
+      "type": "string",
+      "metadata": {
+        "description": "User Name"
+      },
+      "defaultValue": "agftpuser"
+    },
+    "ftp_1_password": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password"
+      }
+    },
+    "ftp_1_serverPort": {
+      "type": "int",
+      "metadata": {
+        "description": "FTP Port Number (example: 21)"
+      }
+    },
+    "ftp_1_isSSL": {
+      "type": "bool",
+      "metadata": {
+        "description": "Enable SSL? (True/False)"
+      },
+      "defaultValue": false
+    },
+    "ftp_1_isBinaryTransport": {
+      "type": "bool",
+      "metadata": {
+        "description": "Enable Binary Transport? (True/False)"
+      },
+      "defaultValue": false
+    },
+    "ftp_1_disableCertificateValidation": {
+      "type": "bool",
+      "metadata": {
+        "description": "Disable Certificate Validation? (True/False)"
+      },
+      "defaultValue": false
+    },
+    "ftp_1_closeConnectionAfterRequestCompletion": {
+      "type": "bool",
+      "metadata": {
+        "description": "Close FTP connection everytime after request completes? (True/False)"
+      },
+      "defaultValue": false
     }
   },
   "variables": {},
@@ -169,7 +231,7 @@
                 "body": "Every Thing Okay Dear."
               },
               "runAfter": {
-                "Add_a_row_into_a_table": [
+                "Create_file": [
                   "Succeeded"
                 ]
               }
@@ -226,6 +288,34 @@
                 "Insert_row_(V2)": [
                   "Succeeded"
                 ]
+              }
+            },
+            "Create_file": {
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['ftp']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "body": "@body('Add_a_row_into_a_table')",
+                "path": "/datasets/default/files",
+                "queries": {
+                  "folderPath": "/",
+                  "name": "MyFile.pdf",
+                  "queryParametersSingleEncoded": true
+                }
+              },
+              "runAfter": {
+                "Add_a_row_into_a_table": [
+                  "Succeeded"
+                ]
+              },
+              "runtimeConfiguration": {
+                "contentTransfer": {
+                  "transferMode": "Chunked"
+                }
               }
             }
           },
@@ -284,6 +374,11 @@
                 "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'excelonline')]",
                 "connectionId": "[resourceId('Microsoft.Web/connections', parameters('excelonline_1_Connection_Name'))]",
                 "connectionName": "[parameters('excelonline_1_Connection_Name')]"
+              },
+              "ftp": {
+                "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'ftp')]",
+                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('ftp_1_Connection_Name'))]",
+                "connectionName": "[parameters('ftp_1_Connection_Name')]"
               }
             }
           }
@@ -291,7 +386,8 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Web/connections', parameters('sql_1_Connection_Name'))]",
-        "[resourceId('Microsoft.Web/connections', parameters('excelonline_1_Connection_Name'))]"
+        "[resourceId('Microsoft.Web/connections', parameters('excelonline_1_Connection_Name'))]",
+        "[resourceId('Microsoft.Web/connections', parameters('ftp_1_Connection_Name'))]"
       ]
     },
     {
@@ -325,6 +421,28 @@
           "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'excelonline')]"
         },
         "displayName": "[parameters('excelonline_1_Connection_DisplayName')]"
+      }
+    },
+    {
+      "type": "MICROSOFT.WEB/CONNECTIONS",
+      "apiVersion": "2018-07-01-preview",
+      "name": "[parameters('ftp_1_Connection_Name')]",
+      "location": "[parameters('logicAppLocation')]",
+      "properties": {
+        "api": {
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'ftp')]"
+        },
+        "displayName": "[parameters('ftp_1_Connection_DisplayName')]",
+        "parameterValues": {
+          "serverAddress": "[parameters('ftp_1_serverAddress')]",
+          "userName": "[parameters('ftp_1_userName')]",
+          "password": "[parameters('ftp_1_password')]",
+          "serverPort": "[parameters('ftp_1_serverPort')]",
+          "isSSL": "[parameters('ftp_1_isSSL')]",
+          "isBinaryTransport": "[parameters('ftp_1_isBinaryTransport')]",
+          "disableCertificateValidation": "[parameters('ftp_1_disableCertificateValidation')]",
+          "closeConnectionAfterRequestCompletion": "[parameters('ftp_1_closeConnectionAfterRequestCompletion')]"
+        }
       }
     }
   ],
