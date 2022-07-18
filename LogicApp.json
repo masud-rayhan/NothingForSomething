@@ -149,24 +149,13 @@
                 },
                 "method": "post",
                 "body": {
-                  "FirstName": "FirstName",
-                  "LastName": "LastName",
-                  "Department": "Department",
-                  "JobTitle": "Job Title",
-                  "Location": "Location",
-                  "FullName": "Full Name",
-                  "HomePhone": "Home Phone",
-                  "MobilePhone": "Mobile Phone",
-                  "State": "State",
-                  "Supervisorname": "Supervisor Name",
-                  "WorkEmail": "sometime@gmail.com",
-                  "City": "City",
-                  "Country": "Country",
-                  "WorkPhone": "Work Phone",
-                  "AddressLine1": "Address Line",
-                  "AddressLine2": "Address Line 2",
-                  "ZipCode": "Zip Code",
-                  "EmploymentStatus": "Okay"
+                  "FirstName": "@triggerBody()?['FirstName']",
+                  "LastName": "@triggerBody()?['LastName']",
+                  "Department": "@triggerBody()?['Department']",
+                  "JobTitle": "@triggerBody()?['JobTitle']",
+                  "Location": "@triggerBody()?['Location']",
+                  "FullName": "@triggerBody()?['FullName']",
+                  "HomePhone": "@triggerBody()?['HomePhone']"
                 },
                 "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent('default'))},@{encodeURIComponent(encodeURIComponent('default'))}/tables/@{encodeURIComponent(encodeURIComponent('[dbo].[Employee]'))}/items"
               },
@@ -195,22 +184,48 @@
                 },
                 "method": "post",
                 "body": {
-                  "Column1": "ColumN1",
-                  "Column2": "No 2",
-                  "Column3": "no 3"
+                  "Column1": "@triggerBody()?['FirstName']",
+                  "Column2": "@triggerBody()?['LastName']",
+                  "Column3": "@triggerBody()?['Department']"
                 },
                 "path": "/codeless/v1.2/drives/me/items/@{encodeURIComponent('B2853B89553C810D!13371')}/workbook/tables/@{encodeURIComponent('{76BA3B34-6B18-462E-B972-A66E5F4F3F70}')}/rows",
                 "queries": {
-                  "source": "me"
+                  "source": "me",
+                  "dateTimeFormat": "Serial Number"
+                }
+              },
+              "runAfter": {
+                "NothingForSomething2": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "B2853B89553C810D!13371": "/MyFile.xlsx"
+              }
+            },
+            "NothingForSomething2": {
+              "type": "Workflow",
+              "inputs": {
+                "host": {
+                  "triggerName": "manual",
+                  "workflow": {
+                    "id": "/subscriptions/cc731891-2d7d-484c-be9d-b985b8e30709/resourceGroups/E78-Rayhan/providers/Microsoft.Logic/workflows/NothingForSomething2"
+                  }
+                },
+                "body": {
+                  "FirstName": "@triggerBody()?['FirstName']",
+                  "LastName": "@triggerBody()?['LastName']",
+                  "Department": "@triggerBody()?['Department']",
+                  "JobTitle": "@triggerBody()?['JobTitle']",
+                  "Location": "@triggerBody()?['Location']",
+                  "FullName": "@triggerBody()?['FullName']",
+                  "HomePhone": "@triggerBody()?['HomePhone']"
                 }
               },
               "runAfter": {
                 "Insert_row_(V2)": [
                   "Succeeded"
                 ]
-              },
-              "metadata": {
-                "B2853B89553C810D!13371": "/MyFile.xlsx"
               }
             }
           },
@@ -228,7 +243,25 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "name": {
+                    "FirstName": {
+                      "type": "string"
+                    },
+                    "LastName": {
+                      "type": "string"
+                    },
+                    "Department": {
+                      "type": "string"
+                    },
+                    "JobTitle": {
+                      "type": "string"
+                    },
+                    "Location": {
+                      "type": "string"
+                    },
+                    "FullName": {
+                      "type": "string"
+                    },
+                    "HomePhone": {
                       "type": "string"
                     }
                   }
