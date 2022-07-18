@@ -157,7 +157,8 @@
       "type": "int",
       "metadata": {
         "description": "FTP Port Number (example: 21)"
-      }
+      },
+      "defaultValue": 443
     },
     "ftp_1_isSSL": {
       "type": "bool",
