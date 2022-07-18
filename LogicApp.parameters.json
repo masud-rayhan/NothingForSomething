@@ -15,7 +15,7 @@
       "value": "#{sql_1_username}"
     },
     "sql_1_password": {
-      "value": "Rajbaby1!"
+      "value": "#{sql_1_password}"
     },
     "sql_1_encryptConnection": {
       "value": true
