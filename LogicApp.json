@@ -150,14 +150,15 @@
       "type": "securestring",
       "metadata": {
         "description": "Password"
-      }
+      },
+      "defaultValue": "agguard1@"
     },
-   /* "ftp_1_serverPort": {
+    "ftp_1_serverPort": {
       "type": "int",
       "metadata": {
         "description": "FTP Port Number (example: 21)"
       }
-    }, */
+    },
     "ftp_1_isSSL": {
       "type": "bool",
       "metadata": {
@@ -231,7 +232,7 @@
                 "body": "Every Thing Okay Dear."
               },
               "runAfter": {
-                "Create_file": [
+                "Update_file": [
                   "Succeeded"
                 ]
               }
@@ -290,7 +291,7 @@
                 ]
               }
             },
-            "Create_file": {
+            "Update_file": {
               "type": "ApiConnection",
               "inputs": {
                 "host": {
@@ -298,24 +299,20 @@
                     "name": "@parameters('$connections')['ftp']['connectionId']"
                   }
                 },
-                "method": "post",
+                "method": "put",
                 "body": "@body('Add_a_row_into_a_table')",
-                "path": "/datasets/default/files",
-                "queries": {
-                  "folderPath": "/",
-                  "name": "MyFile.pdf",
-                  "queryParametersSingleEncoded": true
-                }
+                "headers": {
+                  "ReadFileMetadataFromServer": true
+                },
+                "path": "/datasets/default/files/@{encodeURIComponent(encodeURIComponent('L215RXhjZWwueGxzeA=='))}"
               },
               "runAfter": {
                 "Add_a_row_into_a_table": [
                   "Succeeded"
                 ]
               },
-              "runtimeConfiguration": {
-                "contentTransfer": {
-                  "transferMode": "Chunked"
-                }
+              "metadata": {
+                "L215RXhjZWwueGxzeA==": "/myExcel.xlsx"
               }
             }
           },

@@ -27,10 +27,6 @@
 
       "value": "Server=tcp:e78-onboarding-sqldb.database.windows.net,1433;Initial Catalog=e78-onboarding;Persist Security Info=False;User ID=CloudSAa3ac4e51;Password=Rajbaby1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 
-    },
-    "ftp_1_password": {
-
-      "value": "agguard1@"
     }
   }
 }
