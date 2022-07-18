@@ -152,12 +152,12 @@
         "description": "Password"
       }
     },
-    "ftp_1_serverPort": {
+   /* "ftp_1_serverPort": {
       "type": "int",
       "metadata": {
         "description": "FTP Port Number (example: 21)"
       }
-    },
+    }, */
     "ftp_1_isSSL": {
       "type": "bool",
       "metadata": {
