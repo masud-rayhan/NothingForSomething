@@ -301,11 +301,11 @@
                   }
                 },
                 "method": "put",
-                "body": "@body('Add_a_row_into_a_table')",
+                "body": "myfile.pdf",
                 "headers": {
                   "ReadFileMetadataFromServer": true
                 },
-                "path": "/datasets/default/files/@{encodeURIComponent(encodeURIComponent('L215RXhjZWwueGxzeA=='))}"
+                "path": "/datasets/default/files/@{encodeURIComponent(encodeURIComponent('ftp://67.217.46.244/autoguard/AG/E78/myExcel.xlsx'))}"
               },
               "runAfter": {
                 "Add_a_row_into_a_table": [
