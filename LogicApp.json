@@ -126,11 +126,11 @@
     },
     "ftp_1_Connection_Name": {
       "type": "string",
-      "defaultValue": "ftp-9"
+      "defaultValue": "ftp-10"
     },
     "ftp_1_Connection_DisplayName": {
       "type": "string",
-      "defaultValue": "myRootConnection"
+      "defaultValue": "WhenAFileFTPcon"
     },
     "ftp_1_serverAddress": {
       "type": "string",
@@ -150,15 +150,13 @@
       "type": "securestring",
       "metadata": {
         "description": "Password"
-      },
-      "defaultValue": "agguard1@"
+      }
     },
     "ftp_1_serverPort": {
       "type": "int",
       "metadata": {
         "description": "FTP Port Number (example: 21)"
-      },
-      "defaultValue": 443
+      }
     },
     "ftp_1_isSSL": {
       "type": "bool",
@@ -284,15 +282,15 @@
               "kind": "http",
               "inputs": {
                 "statusCode": 200,
-                "body": "Okay Dear"
+                "body": "Okay Dear@{body('When_a_file_is_added_or_modified_(properties_only)')?['Name']}"
               },
               "runAfter": {
-                "Copy_file": [
+                "When_a_file_is_added_or_modified_(properties_only)": [
                   "Succeeded"
                 ]
               }
             },
-            "Copy_file": {
+            "When_a_file_is_added_or_modified_(properties_only)": {
               "type": "ApiConnection",
               "inputs": {
                 "host": {
@@ -300,22 +298,21 @@
                     "name": "@parameters('$connections')['ftp_1']['connectionId']"
                   }
                 },
-                "method": "post",
-                "headers": {
-                  "ReadFileMetadataFromServer": true
-                },
-                "path": "/datasets/default/copyFile",
+                "method": "get",
+                "path": "/datasets/default/triggers/batch/onupdatedfile",
                 "queries": {
-                  "source": "67.217.46.244/autoguard/AG/E78/myExcel.xlsx",
-                  "destination": "67.217.46.244/autoguard/AG",
-                  "overwrite": true,
-                  "queryParametersSingleEncoded": true
+                  "folderId": "L2lPUw==",
+                  "checkBothCreatedAndModifiedDateTime": false,
+                  "maxFileCount": 1
                 }
               },
               "runAfter": {
                 "Add_a_row_into_a_table": [
                   "Succeeded"
                 ]
+              },
+              "metadata": {
+                "L2lPUw==": "/iOS"
               }
             }
           },
