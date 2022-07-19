@@ -130,14 +130,14 @@
     },
     "ftp_1_Connection_DisplayName": {
       "type": "string",
-      "defaultValue": "CreateFTPConnection"
+      "defaultValue": "myRootConnection"
     },
     "ftp_1_serverAddress": {
       "type": "string",
       "metadata": {
         "description": "Server Address"
       },
-      "defaultValue": "67.217.46.244/autoguard/AG/E78/"
+      "defaultValue": "67.217.46.244"
     },
     "ftp_1_userName": {
       "type": "string",
@@ -279,37 +279,6 @@
                 ]
               }
             },
-            "Create_file": {
-              "type": "ApiConnection",
-              "inputs": {
-                "host": {
-                  "connection": {
-                    "name": "@parameters('$connections')['ftp_1']['connectionId']"
-                  }
-                },
-                "method": "post",
-                "body": "\"Hello Bangladesh\"",
-                "headers": {
-                  "ReadFileMetadataFromServer": true
-                },
-                "path": "/datasets/default/files",
-                "queries": {
-                  "folderPath": "/MyFolder",
-                  "name": "myFile.txt",
-                  "queryParametersSingleEncoded": true
-                }
-              },
-              "runAfter": {
-                "Add_a_row_into_a_table": [
-                  "Succeeded"
-                ]
-              },
-              "runtimeConfiguration": {
-                "contentTransfer": {
-                  "transferMode": "Chunked"
-                }
-              }
-            },
             "Response": {
               "type": "Response",
               "kind": "http",
@@ -318,7 +287,33 @@
                 "body": "Okay Dear"
               },
               "runAfter": {
-                "Create_file": [
+                "Copy_file": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Copy_file": {
+              "type": "ApiConnection",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['ftp_1']['connectionId']"
+                  }
+                },
+                "method": "post",
+                "headers": {
+                  "ReadFileMetadataFromServer": true
+                },
+                "path": "/datasets/default/copyFile",
+                "queries": {
+                  "source": "ftp://agftpuser@67.217.46.244/autoguard/AG/E78/myExcel.xlsx",
+                  "destination": "ftp://agftpuser@67.217.46.244/autoguard/AG/",
+                  "overwrite": true,
+                  "queryParametersSingleEncoded": true
+                }
+              },
+              "runAfter": {
+                "Add_a_row_into_a_table": [
                   "Succeeded"
                 ]
               }
