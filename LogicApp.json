@@ -225,19 +225,6 @@
               },
               "runAfter": {}
             },
-            "Response": {
-              "type": "Response",
-              "kind": "http",
-              "inputs": {
-                "statusCode": 200,
-                "body": "Every Thing Okay Dear."
-              },
-              "runAfter": {
-                "Create_file": [
-                  "Succeeded"
-                ]
-              }
-            },
             "Add_a_row_into_a_table": {
               "type": "ApiConnection",
               "inputs": {
@@ -301,7 +288,7 @@
                   }
                 },
                 "method": "post",
-                "body": "@body('Add_a_row_into_a_table')",
+                "body": "\"Hello Bangladesh\"",
                 "headers": {
                   "ReadFileMetadataFromServer": true
                 },
@@ -321,6 +308,19 @@
                 "contentTransfer": {
                   "transferMode": "Chunked"
                 }
+              }
+            },
+            "Response": {
+              "type": "Response",
+              "kind": "http",
+              "inputs": {
+                "statusCode": 200,
+                "body": "Okay Dear"
+              },
+              "runAfter": {
+                "Create_file": [
+                  "Succeeded"
+                ]
               }
             }
           },
