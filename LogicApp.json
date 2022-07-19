@@ -150,13 +150,15 @@
       "type": "securestring",
       "metadata": {
         "description": "Password"
-      }
+      },
+      "defaultValue": "agguard1@"
     },
     "ftp_1_serverPort": {
       "type": "int",
       "metadata": {
         "description": "FTP Port Number (example: 21)"
-      }
+      },
+      "defaultValue": 21
     },
     "ftp_1_isSSL": {
       "type": "bool",
