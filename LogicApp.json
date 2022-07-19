@@ -306,8 +306,8 @@
                 },
                 "path": "/datasets/default/copyFile",
                 "queries": {
-                  "source": "ftp://agftpuser@67.217.46.244/autoguard/AG/E78/myExcel.xlsx",
-                  "destination": "ftp://agftpuser@67.217.46.244/autoguard/AG/",
+                  "source": "ftp://67.217.46.244/autoguard/AG/E78/myExcel.xlsx",
+                  "destination": "ftp://67.217.46.244/autoguard/AG",
                   "overwrite": true,
                   "queryParametersSingleEncoded": true
                 }
