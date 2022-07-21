@@ -6,7 +6,7 @@
       "value": "NothingForSomething"
     },
     "sql_1_server": {
-      "value": "e78-onboarding-sqldb.database.windows.net"
+      "value": "#{sql_1_server}"
     },
     "sql_1_database": {
       "value": "e78-onboarding"
