@@ -6,16 +6,16 @@
       "value": "NothingForSomething"
     },
     "sql_1_server": {
-      "value": "#{sql_1_server}"
+      "value": "e78-onboarding-sqldb.database.windows.net"
     },
     "sql_1_database": {
       "value": "e78-onboarding"
     },
     "sql_1_username": {
-      "value": "#{sql_1_username}"
+      "value": "CloudSAa3ac4e51"
     },
     "sql_1_password": {
-      "value": "#{sql_1_password}"
+      "value": "Rajbaby1!"
     },
     "sql_1_encryptConnection": {
       "value": true
